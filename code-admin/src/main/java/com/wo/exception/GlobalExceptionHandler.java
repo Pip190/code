@@ -1,4 +1,4 @@
-package com.wo.web;
+package com.wo.exception;
 
 import com.wo.enums.ErrorCodeEnum;
 import com.wo.utils.Result;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice(basePackages = "com.wo.controller")  // 建议加上，不加也可以
 @ResponseBody
-public class GlobalControllerAdvice {
+public class GlobalExceptionHandler {
     // controller层数据校验异常捕获
     @ExceptionHandler
     public Result<Object> handleException(MethodArgumentNotValidException e){

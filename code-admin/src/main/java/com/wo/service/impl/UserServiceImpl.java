@@ -2,8 +2,6 @@ package com.wo.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wo.domain.User;
@@ -19,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@Validated
+@Validated  // 开启校验
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;

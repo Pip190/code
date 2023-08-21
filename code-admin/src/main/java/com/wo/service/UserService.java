@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 public interface UserService {
     Result<User> deleteByPrimaryKey(Long id);
 
-    Result<User> insert(@Valid User record);
+    Result<User> insert(@Valid User record);    // 开启service校验
 
     Result<User> insertSelective(User record);
 
