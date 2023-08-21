@@ -99,17 +99,10 @@ public class Result<T> {
         return create(400,message,data);
     }
     public static <T> Result<T> error(ErrorCodeEnum errorCodeEnum,T data){
-        Result<T> result = new Result<>();
-        result.setCode(errorCodeEnum.getCode());
-        result.setMessage(errorCodeEnum.getMessage());
-        result.setData(data);
-        return result;
+        return create(errorCodeEnum.getCode(), errorCodeEnum.getMessage(), data);
     }
     public static <T> Result<T> error(ErrorCodeEnum errorCodeEnum){
-        Result<T> result = new Result<>();
-        result.setCode(errorCodeEnum.getCode());
-        result.setMessage(errorCodeEnum.getMessage());
-        return result;
+        return create(errorCodeEnum.getCode(), errorCodeEnum.getMessage(), null);
     }
 
 }

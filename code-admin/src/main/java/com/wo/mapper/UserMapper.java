@@ -1,6 +1,7 @@
 package com.wo.mapper;
 
 import com.wo.domain.User;
+import tk.mybatis.mapper.common.BaseMapper;
 
 import java.util.List;
 
