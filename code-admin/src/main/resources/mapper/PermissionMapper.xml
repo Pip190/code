@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wo.mapper.PermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.wo.domain.Permission">
+            <id property="permissionId" column="permission_id" jdbcType="INTEGER"/>
+            <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+            <result property="permissionName" column="permission_name" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="permissionValue" column="permission_value" jdbcType="VARCHAR"/>
+            <result property="path" column="path" jdbcType="VARCHAR"/>
+            <result property="component" column="component" jdbcType="VARCHAR"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        permission_id,parent_id,permission_name,
+        type,permission_value,path,
+        component,icon,create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from permission
+        where  permission_id = #{permissionId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from permission
+        where  permission_id = #{permissionId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="permission_id" keyProperty="permissionId" parameterType="com.wo.domain.Permission" useGeneratedKeys="true">
+        insert into permission
+        ( permission_id,parent_id,permission_name
+        ,type,permission_value,path
+        ,component,icon,create_time
+        )
+        values (#{permissionId,jdbcType=INTEGER},#{parentId,jdbcType=INTEGER},#{permissionName,jdbcType=VARCHAR}
+        ,#{type,jdbcType=VARCHAR},#{permissionValue,jdbcType=VARCHAR},#{path,jdbcType=VARCHAR}
+        ,#{component,jdbcType=VARCHAR},#{icon,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="permission_id" keyProperty="permissionId" parameterType="com.wo.domain.Permission" useGeneratedKeys="true">
+        insert into permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="permissionId != null">permission_id,</if>
+                <if test="parentId != null">parent_id,</if>
+                <if test="permissionName != null">permission_name,</if>
+                <if test="type != null">type,</if>
+                <if test="permissionValue != null">permission_value,</if>
+                <if test="path != null">path,</if>
+                <if test="component != null">component,</if>
+                <if test="icon != null">icon,</if>
+                <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="permissionId != null">#{permissionId,jdbcType=INTEGER},</if>
+                <if test="parentId != null">#{parentId,jdbcType=INTEGER},</if>
+                <if test="permissionName != null">#{permissionName,jdbcType=VARCHAR},</if>
+                <if test="type != null">#{type,jdbcType=VARCHAR},</if>
+                <if test="permissionValue != null">#{permissionValue,jdbcType=VARCHAR},</if>
+                <if test="path != null">#{path,jdbcType=VARCHAR},</if>
+                <if test="component != null">#{component,jdbcType=VARCHAR},</if>
+                <if test="icon != null">#{icon,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wo.domain.Permission">
+        update permission
+        <set>
+                <if test="parentId != null">
+                    parent_id = #{parentId,jdbcType=INTEGER},
+                </if>
+                <if test="permissionName != null">
+                    permission_name = #{permissionName,jdbcType=VARCHAR},
+                </if>
+                <if test="type != null">
+                    type = #{type,jdbcType=VARCHAR},
+                </if>
+                <if test="permissionValue != null">
+                    permission_value = #{permissionValue,jdbcType=VARCHAR},
+                </if>
+                <if test="path != null">
+                    path = #{path,jdbcType=VARCHAR},
+                </if>
+                <if test="component != null">
+                    component = #{component,jdbcType=VARCHAR},
+                </if>
+                <if test="icon != null">
+                    icon = #{icon,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   permission_id = #{permissionId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wo.domain.Permission">
+        update permission
+        set 
+            parent_id =  #{parentId,jdbcType=INTEGER},
+            permission_name =  #{permissionName,jdbcType=VARCHAR},
+            type =  #{type,jdbcType=VARCHAR},
+            permission_value =  #{permissionValue,jdbcType=VARCHAR},
+            path =  #{path,jdbcType=VARCHAR},
+            component =  #{component,jdbcType=VARCHAR},
+            icon =  #{icon,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP}
+        where   permission_id = #{permissionId,jdbcType=INTEGER} 
+    </update>
+</mapper>

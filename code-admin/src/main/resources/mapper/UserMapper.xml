@@ -5,7 +5,7 @@
 <mapper namespace="com.wo.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.wo.domain.User">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,username,password,
+        user_id,username,password,
         nick_name,email
     </sql>
     <select id="listUser" resultMap="BaseResultMap">
@@ -25,7 +25,7 @@
         select
         <include refid="Base_Column_List" />
         from user
-        where  id = #{id,jdbcType=INTEGER}
+        where  user_id = #{userId,jdbcType=INTEGER}
     </select>
     <select id="selectByUsername" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
@@ -35,26 +35,26 @@
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from user
-        where  id = #{id,jdbcType=INTEGER} 
+        where  user_id = #{userId,jdbcType=INTEGER}
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wo.domain.User" useGeneratedKeys="true">
         insert into user
-        ( id,username,password
+        ( user_id,username,password
         ,nick_name,email)
-        values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}
+        values (#{userId,jdbcType=INTEGER},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}
         ,#{nickName,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wo.domain.User" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="com.wo.domain.User" useGeneratedKeys="true">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
+                <if test="userId != null">userId,</if>
                 <if test="username != null">username,</if>
                 <if test="password != null">password,</if>
                 <if test="nickName != null">nick_name,</if>
                 <if test="email != null">email,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="userId != null">#{userId,jdbcType=INTEGER},</if>
                 <if test="username != null">#{username,jdbcType=VARCHAR},</if>
                 <if test="password != null">#{password,jdbcType=VARCHAR},</if>
                 <if test="nickName != null">#{nickName,jdbcType=VARCHAR},</if>
@@ -86,6 +86,6 @@
             password =  #{password,jdbcType=VARCHAR},
             nick_name =  #{nickName,jdbcType=VARCHAR},
             email =  #{email,jdbcType=VARCHAR}
-        where   id = #{id,jdbcType=INTEGER} 
+        where   user_id = #{userId,jdbcType=INTEGER}
     </update>
 </mapper>

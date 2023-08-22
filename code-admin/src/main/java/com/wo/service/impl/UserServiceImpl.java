@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<User> selectByPrimaryKey(Long id) {
-        User user = this.userMapper.selectByPrimaryKey(id);
+    public Result<User> selectByPrimaryKey(Long userId) {
+        User user = this.userMapper.selectByPrimaryKey(userId);
         if (!ObjectUtils.isEmpty(user)){
             return Result.ok("查询成功",user);
         }
@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<User> updateByPrimaryKeySelective(Long id, User source) {
-        User user = this.userMapper.selectByPrimaryKey(id);
+    public Result<User> updateByPrimaryKeySelective(Long userId, User source) {
+        User user = this.userMapper.selectByPrimaryKey(userId);
         if (Objects.nonNull(user)){
             CopyOptions copyOptions = CopyOptions.create().setIgnoreNullValue(true).setIgnoreProperties("id");
             BeanUtil.copyProperties(source,user,copyOptions);
@@ -75,8 +75,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<User> updateByPrimaryKey(Long id, User source) {
-        User user = this.userMapper.selectByPrimaryKey(id);
+    public Result<User> updateByPrimaryKey(Long userId, User source) {
+        User user = this.userMapper.selectByPrimaryKey(userId);
         if (Objects.nonNull(user)){
             BeanUtil.copyProperties(source,user,"id");
             int updateByPrimaryKey = this.userMapper.updateByPrimaryKey(user);
