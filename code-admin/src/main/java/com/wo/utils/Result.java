@@ -3,13 +3,15 @@ package com.wo.utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.wo.enums.ErrorCodeEnum;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor(staticName = "create")
+@AllArgsConstructor(staticName = "create")  // 全参构造方法起别名
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)  // 为空置则不显示
+@Builder    // 构造者模式
 public class Result<T> {
     /**
      * 响应码

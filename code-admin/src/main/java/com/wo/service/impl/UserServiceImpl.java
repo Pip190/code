@@ -9,6 +9,7 @@ import com.wo.mapper.UserMapper;
 import com.wo.service.UserService;
 import com.wo.utils.Result;
 import jakarta.annotation.Resource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
     @Override
+    @PreAuthorize("hasAuthority('user:delete')") // 预授权
     public Result<User> deleteByPrimaryKey(Long id) {
         int deleteByPrimaryKey = this.userMapper.deleteByPrimaryKey(id);
         if (deleteByPrimaryKey>0){
@@ -86,10 +88,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('user.query')") // 预授权
     public Result<PageInfo<User>> listUserPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<User> userList=userMapper.listUser();
-        PageInfo<User> pageInfo=new PageInfo<>(userList);
+        List<User> userList = this.userMapper.listUser();
+        PageInfo<User> pageInfo = new PageInfo<>(userList);
         return Result.ok("查询成功",pageInfo);
+    }
+
+    @Override
+    public User selectByUsername(String username) {
+        return this.userMapper.selectByUsername(username);
     }
 }

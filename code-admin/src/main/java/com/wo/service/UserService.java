@@ -19,4 +19,6 @@ public interface UserService {
     Result<User> updateByPrimaryKey(Long id, User record);
 
     Result<PageInfo<User>> listUserPage(int pageNum, int pageSize);
+
+    User selectByUsername(String username);
 }
