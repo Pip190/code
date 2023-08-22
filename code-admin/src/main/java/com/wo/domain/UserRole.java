@@ -10,6 +10,8 @@ import lombok.Data;
  */
 @Data
 public class UserRole implements Serializable {
+    public interface Update {}
+    public interface Insert {}
     /**
      * 用户id
      */

@@ -10,6 +10,8 @@ import lombok.Data;
  */
 @Data
 public class Permission implements Serializable {
+    public interface Update {}
+    public interface Insert {}
     /**
      * 权限id
      */
