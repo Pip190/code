@@ -1,4 +1,5 @@
 package com.wo.mapper;
+import java.util.List;
 
 import com.wo.domain.Permission;
 
@@ -21,5 +22,7 @@ public interface PermissionMapper {
     int updateByPrimaryKeySelective(Permission record);
 
     int updateByPrimaryKey(Permission record);
+
+    List<Permission> listAll();
 
 }

@@ -54,7 +54,10 @@ public class WebSecurityConfig {
                 .formLogin(formLogin -> formLogin
                         .successHandler(successHandler) // 配置认证成功处理器
                         .failureHandler(failureHandler) // 配置认证失败处理器
-    //                    .loginPage("/login")
+//                        .loginPage("/login")
+//                        .usernameParameter("username")
+//                        .passwordParameter("password")
+//                        .loginProcessingUrl("/login")
                         .permitAll()
                 )
                 .logout(logout -> logout
