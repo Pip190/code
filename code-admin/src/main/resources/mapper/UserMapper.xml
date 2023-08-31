@@ -32,10 +32,40 @@
         from user
         where username = #{username}
     </select>
+    <select id="selectAllRtnBigMap" resultType="java.util.Map">
+        select <include refid="Base_Column_List"/>
+            from user
+    </select>
+    <select id="selectAllRtnListMap" resultType="java.util.Map">
+        select <include refid="Base_Column_List"/>
+            from user
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from user
         where  user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <!--批量删除in，设置开闭括号“（）”，直接in + foreach遍历-->
+    <delete id="deleteBatchArrayIn">
+        delete from user where user_id in
+            <foreach collection="userIds" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </delete>
+    <!-- 批量删除in，没有弄开闭“（）”直接在括号里边遍历元素后塞到括号里 -->
+    <!--<delete id="deleteBatchArrayIn">
+        delete from user where user_id in (
+        <foreach collection="userIds" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>-->
+    <!-- 批量删除or方式 -->
+    <delete id="deleteBatchArrayOr">
+        delete from user where
+             <foreach collection="userIds" item="id" separator="or">
+                 user_id=#{id}
+             </foreach>
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wo.domain.User" useGeneratedKeys="true">
         insert into user
@@ -88,4 +118,13 @@
             email =  #{email,jdbcType=VARCHAR}
         where   user_id = #{userId,jdbcType=INTEGER}
     </update>
+    <insert id="insertBatch">
+        insert into user(user_id,username,password,
+        nick_name,email)
+        values
+        <foreach collection="userCollection" item="item" separator=",">
+            (#{item.userId,jdbcType=NUMERIC},#{item.username,jdbcType=VARCHAR},#{item.password,jdbcType=VARCHAR},
+            #{item.nickName,jdbcType=VARCHAR},#{item.email,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
 </mapper>
