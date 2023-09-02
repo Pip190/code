@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="simpleValueType" class="com.wo.pojo.SimpleValueType">
+        <property name="username" value="张三"/>
+        <property name="age" value="1"/>
+        <property name="age2" value="2"/>
+        <property name="AChar" value="男"/>
+        <property name="flag" value="false"/>
+        <property name="flag2" value="true"/>
+        <property name="AChar2" value="张"/>
+        <property name="AClass" value="java.lang.String"/>
+        <property name="seasonEnum" value="SPRING"/>
+        <!--说明：Date是简单基本数据类型，如果要赋值不能是如下这种“2023-09-02”，必须是“Sat Sep 02 16:12:11 CST 2023”
+        否则会报如下异常：Failed to convert property value of type 'java.lang.String' to required type 'java.util.Date' for property 'date';
+        Cannot convert value of type 'java.lang.String' to required type 'java.util.Date' for property 'date': no matching editors or conversion strategy found
+        -->
+<!--        <property name="date" value="2023-09-02"/>-->
+        <property name="date" value="Sat Sep 02 16:12:11 CST 2023"/>
+    </bean>
+    <!--注入简单类型-->
+    <bean id="userBean" class="com.wo.pojo.User">
+        <!--重点：如果是简单数据类型赋值，就不能使用ref,得使用value-->
+        <property name="username" value="张三"/>
+        <property name="password" value="123456"/>
+        <property name="age" value="18"/>
+    </bean>
+</beans>

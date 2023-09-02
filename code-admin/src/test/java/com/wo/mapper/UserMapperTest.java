@@ -1,5 +1,7 @@
 package com.wo.mapper;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.wo.domain.Points;
 import com.wo.domain.User;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -80,5 +82,16 @@ class UserMapperTest {
         Long[] batchArray = {10L,11L,12L};
         int deleteBatchArrayIn = userMapper.deleteBatchArrayOr(batchArray);
         log.info("Or方式 批量删除条数：{}",deleteBatchArrayIn);
+    }
+    @Test
+    void testIntegerTransformLong(){
+        Points points = new Points();
+        Integer integerType = null;
+        if(ObjectUtil.isNull(integerType)){
+            log.info("Integer为空");
+            return;
+        }
+        points.setUserId((long) integerType);
+        log.info("UserId: " + points.getUserId());
     }
 }

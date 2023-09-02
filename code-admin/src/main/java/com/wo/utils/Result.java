@@ -47,15 +47,6 @@ public class Result<T> {
     /**
      * 生成了新的资源。
      * @param message 响应消息
-     * @return 201状态码
-     * @param <T> 泛型
-     */
-    public static <T> Result<T> created(String message){
-        return create(201,message,null);
-    }
-    /**
-     * 生成了新的资源。
-     * @param message 响应消息
      * @param data 响应数据
      * @return 201状态码
      * @param <T> 泛型
@@ -71,16 +62,6 @@ public class Result<T> {
      */
     public static <T> Result<T> noContent(String message){
         return create(204,message,null);
-    }
-    /**
-     * 资源已经不存在。
-     * @param message 响应消息
-     * @param data 响应数据
-     * @return 204状态码
-     * @param <T> 泛型
-     */
-    public static <T> Result<T> noContent(String message,T data){
-        return create(204,message,data);
     }
     /**
      * 操作失败。
@@ -100,9 +81,23 @@ public class Result<T> {
     public static <T> Result<T> error(String message,T data){
         return create(400,message,data);
     }
+
+    /**
+     * 参数/业务异常捕获状态码
+     * @param errorCodeEnum 错误码枚举
+     * @param data 错误信息提醒
+     * @return 400
+     * @param <T> 泛型
+     */
     public static <T> Result<T> error(ErrorCodeEnum errorCodeEnum,T data){
         return create(errorCodeEnum.getCode(), errorCodeEnum.getMessage(), data);
     }
+    /**
+     * 参数/业务异常捕获状态码
+     * @param errorCodeEnum 错误码枚举
+     * @return 400
+     * @param <T> 泛型
+     */
     public static <T> Result<T> error(ErrorCodeEnum errorCodeEnum){
         return create(errorCodeEnum.getCode(), errorCodeEnum.getMessage(), null);
     }

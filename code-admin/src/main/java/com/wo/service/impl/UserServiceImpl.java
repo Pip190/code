@@ -2,6 +2,7 @@ package com.wo.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wo.domain.User;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
     public Result<User> deleteByPrimaryKey(Long id) {
         int deleteByPrimaryKey = this.userMapper.deleteByPrimaryKey(id);
         if (deleteByPrimaryKey>0){
-            return Result.ok("删除成功");
+            return Result.noContent("删除成功");
         }
         return Result.error("删除失败");
     }
@@ -56,22 +57,22 @@ public class UserServiceImpl implements UserService {
         if (!ObjectUtils.isEmpty(user)){
             return Result.ok("查询成功",user);
         }
-        return Result.noContent("资源不存在");
+        return Result.error("资源不存在");
     }
 
     @Override
     public Result<User> updateByPrimaryKeySelective(Long userId, User source) {
         User user = this.userMapper.selectByPrimaryKey(userId);
-        if (Objects.nonNull(user)){
+        if (ObjectUtil.isNotNull(user)){
             CopyOptions copyOptions = CopyOptions.create().setIgnoreNullValue(true).setIgnoreProperties("id");
             BeanUtil.copyProperties(source,user,copyOptions);
             int updateByPrimaryKeySelective = this.userMapper.updateByPrimaryKeySelective(user);
             if (updateByPrimaryKeySelective>0){
                 return Result.ok("修改成功");
             }
-            return Result.noContent("修改失败");
+            return Result.error("修改失败");
         }
-        return Result.error("修改失败");
+        return Result.error("资源不存在");
     }
 
     @Override
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService {
                 return Result.ok("修改成功");
             }
         }
-        return Result.noContent("修改失败");
+        return Result.error("修改失败");
     }
 
     @Override
